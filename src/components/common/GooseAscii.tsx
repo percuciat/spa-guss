@@ -1,32 +1,10 @@
 import { Box } from "@mantine/core";
+import { GOOSE_ART } from "@/assets/goose";
 
 interface IProps {
   onClick?: () => void;
   disabled?: boolean;
 }
-
-const GOOSE_ART = `
-                                       ___
-                                   ,-""   \`.
-                                 ,'  _   e )\`-._
-                                /  ,' \`-._<.===-'
-                               /  /
-                              /  ;
-                  _          /   ;
-     (\`._    _.-"" ""--..__,'    |
-     <_  \`-""                     \\
-      <\`-                          :
-       (__   <__.                  ;
-         \`-.   '-.__.      _.'    /
-            \\      \`-.__,-'    _,'
-             \`._    ,    /__,-'
-                ""._\\__,'< <____
-                     | |  \`----.'.
-                     | |        \\ \`.
-                     ; |___      \\-\`\`
-                     \\   --<
-                      \`.___/
-`;
 
 export function GooseAscii({ onClick, disabled }: IProps) {
   return (
@@ -37,9 +15,7 @@ export function GooseAscii({ onClick, disabled }: IProps) {
         fontFamily: '"JetBrains Mono", "Fira Code", monospace',
         fontSize: "10px",
         lineHeight: 1.2,
-        color: disabled
-          ? "var(--mantine-color-gray-6)"
-          : "var(--mantine-color-cyan-4)",
+        color: disabled ? "var(--mantine-color-gray-6)" : "var(--mantine-color-cyan-4)",
         cursor: disabled ? "not-allowed" : "pointer",
         userSelect: "none",
         transition: "transform 0.1s, text-shadow 0.1s",
