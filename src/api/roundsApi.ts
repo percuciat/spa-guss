@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API_URL } from "@/constants";
-import { computeRoundStatus } from "@/utils/time";
+import { transformRound } from "@/utils/mapping";
 import type { RootState } from "@/store";
 import type {
   IRound,
@@ -10,27 +10,7 @@ import type {
   IApiRoundDetailResponse,
   IApiRound,
 } from "@/types";
-
-interface ICreateRoundRequest {
-  startTime: string;
-  endTime: string;
-}
-
-interface ITapResponse {
-  taps: number;
-  score: number;
-}
-
-// Преобразование API раунда в клиентский формат
-function transformRound(apiRound: IApiRound): IRound {
-  return {
-    id: apiRound.id,
-    startTime: apiRound.startTime,
-    endTime: apiRound.endTime,
-    status: computeRoundStatus(apiRound.startTime, apiRound.endTime),
-    totalScore: apiRound.totalScore,
-  };
-}
+import type { ICreateRoundRequest, ITapResponse } from "./types";
 
 // API для раундов
 export const roundsApi = createApi({

@@ -1,7 +1,5 @@
-// Auth types
-export type { IUser, IAuthState } from "./auth";
+export type { IUser, IAuthState, TLoginFormData } from "./auth";
 
-// Round types
 export type {
   TRoundStatus,
   IRound,

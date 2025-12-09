@@ -11,7 +11,7 @@ export function RoundPage() {
   const [currentStatus, setCurrentStatus] = useState<TRoundStatus | null>(null);
 
   if (!id) {
-    return null;
+    return <div>Round not found</div>;
   }
 
   return (
@@ -19,10 +19,7 @@ export function RoundPage() {
       <Header title={getRoundPageTitle(currentStatus)} />
 
       <Center>
-        <RoundGameContainer
-          roundId={id}
-          onStatusChange={(status) => setCurrentStatus(status as TRoundStatus)}
-        />
+        <RoundGameContainer roundId={id} onStatusChange={setCurrentStatus} />
       </Center>
     </Container>
   );

@@ -2,15 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { RootState } from "@/store";
 import type { IUser } from "@/types";
 import { API_URL } from "@/constants";
-
-interface ILoginRequest {
-  username: string;
-  password: string;
-}
-
-interface ILoginResponse {
-  token: string;
-}
+import type { ILoginRequest, ILoginResponse } from "./types";
 
 // Отдельный API для авторизации с реальным бэкендом
 export const authApi = createApi({

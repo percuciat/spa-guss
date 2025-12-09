@@ -33,13 +33,14 @@ export interface IApiRound {
   createdAt: string;
 }
 
+interface IApiTopStats {
+  taps: number;
+  score: number;
+  user: { username: string };
+}
 export interface IApiRoundDetailResponse {
   round: IApiRound;
-  topStats: Array<{
-    taps: number;
-    score: number;
-    user: { username: string };
-  }>;
+  topStats: IApiTopStats[];
   myStats: {
     taps: number;
     score: number;

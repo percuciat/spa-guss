@@ -1,16 +1,15 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Stack, Box, Center, Loader } from "@mantine/core";
 import { GooseAscii } from "@/components/common/GooseAscii";
-import { RoundCooldown } from "@/components/round/RoundCooldown";
-import { RoundActive } from "@/components/round/RoundActive";
-import { RoundStats } from "@/components/round/RoundStats";
+import { RoundCooldown, RoundActive, RoundStats } from "@/components/round";
 import { useGetRoundQuery, useTapMutation, useGetRoundStatsQuery } from "@/api/roundsApi";
 import { useRoundTimer } from "@/hooks/useRoundTimer";
 import { POLLING_INTERVAL_MS } from "@/constants";
+import { TRoundStatus } from "@/types";
 
 interface IProps {
   roundId: string;
-  onStatusChange?: (status: string | null) => void;
+  onStatusChange?: (status: TRoundStatus | null) => void;
 }
 
 export function RoundGameContainer({ roundId, onStatusChange }: IProps) {
@@ -59,11 +58,11 @@ export function RoundGameContainer({ roundId, onStatusChange }: IProps) {
 
   // Статистика для завершённого раунда
   const { data: stats } = useGetRoundStatsQuery(roundId, {
-    skip: !roundId || !isFinished,
+    skip: !isFinished,
   });
 
   const handleTap = useCallback(async () => {
-    if (!roundId || !isActive) return;
+    if (!isActive) return;
 
     setLocalPoints((p) => p + 1);
 
@@ -76,7 +75,7 @@ export function RoundGameContainer({ roundId, onStatusChange }: IProps) {
   }, [roundId, isActive, tap]);
 
   // Показываем загрузку
-  if (isLoading || !round || currentStatus === null) {
+  if (isLoading || currentStatus === null) {
     return (
       <Center py="xl">
         <Loader color="cyan" />

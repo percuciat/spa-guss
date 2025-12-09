@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
   Container,
   Paper,
@@ -12,53 +11,24 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
-import { useLoginMutation, useLazyMeQuery } from "@/api/authApi";
-import { useAppDispatch, useAppSelector } from "@/store";
-import { setAuth } from "@/store/authSlice";
-import { loginSchema, TLoginFormData } from "@/schemas/auth";
-import { extractErrorMessage } from "@/utils/error";
+
+import { useAppSelector } from "@/store";
+
+import { ROUTES } from "@/constants";
+import { useLoginForm } from "./hooks/useLoginForm";
 
 export function LoginPage() {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const { register, handleSubmit, errors, isLoading, errorMessage, onSubmit } = useLoginForm();
+
   const user = useAppSelector((s) => s.auth.user);
-  const [login, { isLoading, error }] = useLoginMutation();
-  const [fetchMe] = useLazyMeQuery();
-  const [errorMessage, setErrorMessage] = useState<string | undefined>();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<TLoginFormData>({
-    resolver: zodResolver(loginSchema),
-  });
-
-  const onSubmit = async (data: TLoginFormData) => {
-    try {
-      const loginResult = await login(data).unwrap();
-      dispatch(setAuth({ user: null as never, token: loginResult.token }));
-
-      const meResult = await fetchMe().unwrap();
-      dispatch(setAuth({ user: meResult, token: loginResult.token }));
-
-      navigate("/listing");
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   // Редирект если уже залогинен
   useEffect(() => {
     if (user) {
-      navigate("/listing", { replace: true });
+      navigate(ROUTES.listing, { replace: true });
     }
   }, [user, navigate]);
-
-  // Обработка ошибок
-  useEffect(() => {
-    setErrorMessage(extractErrorMessage(error));
-  }, [error]);
 
   return (
     <Container size={400} py={80}>

@@ -3,22 +3,11 @@ import type { TRoundStatus, IRoundWithPoints } from "@/types";
 import { isActiveRound, isCooldownRound, isFinishedRound } from "@/utils/rounds";
 import { computeRoundStatus, computeTimeLeft } from "@/utils/time";
 
-interface IUseRoundTimerResult {
-  timeLeft: number | null;
-  currentStatus: TRoundStatus | null;
-  isActive: boolean;
-  isCooldown: boolean;
-  isFinished: boolean;
-}
-
 /**
  * Хук для управления таймером раунда
  * Автоматически вычисляет статус и оставшееся время
  */
-export function useRoundTimer(
-  round: IRoundWithPoints | undefined,
-  onStatusChange?: () => void
-): IUseRoundTimerResult {
+export function useRoundTimer(round?: IRoundWithPoints, onStatusChange?: () => void) {
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [currentStatus, setCurrentStatus] = useState<TRoundStatus | null>(null);
 

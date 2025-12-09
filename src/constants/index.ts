@@ -30,3 +30,10 @@ export const ROUND_STATUS_LABELS = {
 export const POLLING_INTERVAL_MS = 5_000;
 
 export const ROUND_START_DELAY_MS = 10_000; // 10 секунд задержки до старта
+
+export const ROUTES = {
+  login: "/login",
+  listing: "/listing",
+  round: "/round/:id",
+  notFound: "*",
+} as const;

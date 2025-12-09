@@ -9,3 +9,7 @@ export interface IAuthState {
   token: string | null;
 }
 
+export type TLoginFormData = {
+  username: string;
+  password: string;
+};
