@@ -1,5 +1,7 @@
 # Goose Game 🪿
 
+https://test-guss.maksim-semenov.ru/
+
 Браузерная игра - тапай по гусю и набирай очки!
 
 ## Запуск
@@ -71,3 +73,4 @@ Backend: `http://v2991160.hosted-by-vdsina.ru`
 | `/api/v1/rounds` | POST | Создать раунд (admin) |
 | `/api/v1/rounds/{id}` | GET | Детали раунда |
 | `/api/v1/rounds/{id}/tap` | POST | Тап по гусю |
+
